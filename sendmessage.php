@@ -9,7 +9,7 @@ include "header.php";
 
 if(!isset($_SESSION['userid']))
 	{
-		echo 'You must sign in to send a message.';
+		echo 'You must be signed in to send a message.';
 	}
 	else
 	{
@@ -38,9 +38,9 @@ if(!isset($_SESSION['userid']))
 						 author,
 						 text) 
 				VALUES (' .$row['userid']. ',
-					    "' . mysqli_real_escape_string($mysqli,$_POST['title']) . '",
+					    "' . mysqli_real_escape_string($_POST['title']) . '",
 					    '.$_SESSION['userid'].',
-					    "'. mysqli_real_escape_string($mysqli,$_POST['message-content']).'")';
+					    "'. mysqli_real_escape_string($_POST['message-content']).'")';
 				$result->free();
 			}
 
@@ -49,12 +49,12 @@ if(!isset($_SESSION['userid']))
 		$result = $mysqli->query($sql);
 		if(!$result)
 		{
-			echo 'Your message has not been sent, please check the email address.';
+			echo 'Your message has not been sent, please try again later.';
 		}
 		else
 		{
 
-			echo 'Your message has been sent. ';
+			echo 'Your message has been saved. ';
 		}
 	}
 

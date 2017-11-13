@@ -32,14 +32,14 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 	$result=$mysqli->query("delete from requests where requestid=".$_POST['rid']);
 }
 
-$query = "select requestid, request_type, from_id, uname, email
+$query = "select requestid, request_type, from_id, uname
 	      from requests,users
 			  where rec_id = ? and from_id = userid";
 
 if ($stmt = $mysqli->prepare($query)) {
 	$stmt->bind_param('s', $_SESSION["userid"]);
 	$stmt->execute();
-	$stmt->bind_result($rid, $type, $fromid, $fromname, $email);
+	$stmt->bind_result($rid, $type, $fromid, $fromname);
 }
 
 echo '<table border="1">
@@ -55,10 +55,10 @@ else {
 	echo '<tr>';
 	echo '<td class="leftpart">';
 	if ($type == 'friends'){
-		echo '<p><strong>['. $type.']</strong>'.$fromname.'('.$email.')'.' '.'want to add you as a friend.</p>';
+		echo '<p><strong>['. $type.']</strong>'.$fromname.' want to add you as a friend.</p>';
 	}
 	else{
-		echo '<p><strong>['. $type.']</strong>'.$fromname.'('.$email.')'.' '.'want to join the block.</p>';
+		echo '<p><strong>['. $type.']</strong>'.$fromname.' want to join the block.</p>';
 	}
 	echo '</td><td class="rightpart1">';
 	echo '<form action="message.php" method="POST">
@@ -86,10 +86,10 @@ while ($stmt->fetch()) {
 		echo '<tr>';
 		echo '<td class="leftpart">';
 		if ($type == 'friends'){
-			echo '<p><strong>['. $type.']</strong>'.$fromname.'('.$email.')'.' '.'want to add you as a friend.</p>';
+			echo '<p><strong>['. $type.']</strong>'.$fromname.'want to add you as a friend.</p>';
 		}
 		else{
-			echo '<p><strong>['. $type.']</strong>'.$fromname.'('.$email.')'.' '.'want to join the block.</p>';
+			echo '<p><strong>['. $type.']</strong>'.$fromname.'want to join the block.</p>';
 		}
 		echo '</td><td class="rightpart1">';
 		echo '<form action="message.php" method="POST">
@@ -119,14 +119,13 @@ echo '<table>
       <td></td>
       </tr>';
 
-$query = "select messageid, title, uname, time, email
+$query = "select messageid, title, uname
           from messages,users
- 		  where readf = 'N' and author = userid and recipient_id = ?
- 		  order by time desc";
+ 		  where readf = 'N' and author = userid and recipient_id = ?";
 if ($stmt = $mysqli->prepare($query)) {
 	$stmt->bind_param('s', $_SESSION["userid"]);
     $stmt->execute();
-    $stmt->bind_result($mid, $title, $author, $time, $email);
+    $stmt->bind_result($mid, $title, $author);
     }
 
 echo '<table border="1">
@@ -144,9 +143,7 @@ else {
 	echo '<p><a href="readmessage.php?id='.$mid.'"'.'</a>'. htmlentities($title, ENT_QUOTES, 'UTF-8').'</p>';
 	echo '</td>';
 	echo '<td class="rightpart">';
-	echo $author.'('.$email.')';
-	echo '<br> sent at ';
-	echo $time;
+	echo $author;
 	echo '</td>';
 	echo '</tr>';
     while ($stmt->fetch()) {
@@ -155,24 +152,21 @@ else {
 		echo '<p><a href="readmessage.php?id='.$mid.'"'.'</a>'. htmlentities($title, ENT_QUOTES, 'UTF-8').'</p>';
 		echo '</td>';
 		echo '<td class="rightpart">';
-		echo $author.'('.$email.')';
-		echo '<br> sent at ';
-		echo $time;
+		echo $author;
 		echo '</td>';
 		echo '</tr>';
     }
 }
 $stmt->close();
 
-$query = "select messageid, title, uname, time, email
+$query = "select messageid, title, uname
           from messages,users
- 		  where readf = 'Y' and author = userid and recipient_id = ?
- 		  order by time desc";
+ 		  where readf = 'Y' and author = userid and recipient_id = ?";
 
 if ($stmt = $mysqli->prepare($query)) {
 	$stmt->bind_param('s', $_SESSION["userid"]);
     $stmt->execute();
-    $stmt->bind_result($mid, $title, $author, $time, $email);
+    $stmt->bind_result($mid, $title, $author);
     }
 
 echo '<table border="1">
@@ -190,9 +184,7 @@ else {
 	echo '<p><a href="readmessage.php?id='.$mid.'"'.'</a>'. htmlentities($title, ENT_QUOTES, 'UTF-8').'</p>';
 	echo '</td>';
 	echo '<td class="rightpart">';
-	echo $author.'('.$email.')';
-	echo '<br> sent at ';
-	echo $time;
+	echo $author;
 	echo '</td>';
 	echo '</tr>';
     while ($stmt->fetch()) {
@@ -201,9 +193,7 @@ else {
 		echo '<p><a href="readmessage.php?id='.$mid.'"'.'</a>'. htmlentities($title, ENT_QUOTES, 'UTF-8').'</p>';
 		echo '</td>';
 		echo '<td class="rightpart">';
-		echo $author.'('.$email.')';
-		echo '<br> sent at ';
-		echo $time;
+		echo $author;
 		echo '</td>';
 		echo '</tr>';
     }

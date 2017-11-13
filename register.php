@@ -17,7 +17,7 @@ else {
 	
     if(isset($_POST["email"]) && ($_POST["password"]==$_POST["confirm"])){
 		$email = $_POST["email"];
-		$password = md5($_POST["password"]);
+		$password = $_POST["password"];
 		$uname = $_POST["uname"];
 		$address = $_POST["address"];
 		$profile = $_POST["profile"];
@@ -32,29 +32,36 @@ else {
         $response = curl_exec($ch);
         curl_close($ch);
         $response_a = json_decode($response);
-        if(!$response_a->results)
-        {
-            echo "Address Not Found!";
-            echo '<br /><a href="register.php">Try again.</a>';
-        }
-		else
-        {
-            $lat = $response_a->results[0]->geometry->location->lat;
-            $long = $response_a->results[0]->geometry->location->lng;
-
+        $lat = $response_a->results[0]->geometry->location->lat;
+        $long = $response_a->results[0]->geometry->location->lng;
+		if(!isset($lat))
+		{
+			echo "Address Not Found!";
+			echo '<br /><a href="register.php">Try again.</a>';
+		}
+		else{
             if ($stmt = $mysqli->prepare("call addUser('$email','$uname','$password','$address','$lat','$long','$profile')")){
-
               $stmt->execute();
     		  $stmt->bind_result($registSuccess);
     
               if($stmt->fetch()){
-                $stmt->close();
-               
-    		  	if($registSuccess!=0){
-    				echo "Register Succeeed!<br></br>";
-                    $_SESSION["userid"] = $registSuccess;
+    		  	if($registSuccess==1){
+    				echo "Register Succeeed!";
+                    $_SESSION["userid"] = $userid;
                     $_SESSION["uname"] = $uname;
-    				echo 'You have one more step to go. Apply for your block membership <a href="block.php">here</a>.';
+    				echo '<br /><a href="signin.php">Sign in</a>';
+					$_SESSION["pName"]=$uname;
+					$_SESSION["pAddress"]=$address;
+					$_SEESION["pProfile"]=$profile;
+					$_SESSION["pLat"]=$lat;
+					$_SESSION["pLong"]=$long;
+					$_SESSION["show"]=1;
+                    $_SESSION["pNorth"]=41.01;
+                    $_SESSION["pSouth"]=41.005;
+                    $_SESSION["pEast"]=-74.00;
+                    $_SESSION["pWest"]=-74.01;
+                    $_SESSION["drawRectangle"]=1;
+					include "map.php";
     			}
     			else{
     				echo "This Email is alread registered!";
@@ -64,8 +71,8 @@ else {
               }
             
             }
-    		
-    		
+    		$stmt->close();
+    		$mysqli->close();
 		}
     
     }
@@ -83,7 +90,7 @@ else {
     	echo 'Name <input type="text" name="uname" pattern="[a-zA-z ]*" maxlength="32" required="required"/><br />';
     	echo 'Address:<input type="text" name="address" pattern="[A-z0-9 -_]*" maxlength="32" required="required" /><br />';
     	echo 'Profile:<br>
-              <textarea name="profile" required="required" />Hi!Say something.</textarea><br /><br />';
+              <textarea name="profile" required="required" />Hi!</textarea><br /><br />';
 
     	echo '<input type="submit" value="Submit" />';
     	echo '</form>';
@@ -91,6 +98,5 @@ else {
     	
     }
 }
-$mysqli->close();
 include "footer.php";
 ?>

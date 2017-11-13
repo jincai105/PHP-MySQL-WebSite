@@ -14,13 +14,13 @@ if(isset($_GET['id'])){
 $result = $mysqli->query("update messages set readf = 'Y' where messageid = ".$id);
 // if ($result) {echo 'OK';}
 
-$query = "select title,text,time,uname,author,email
+$query = "select title,text,time,uname,author
 		  from messages,users
 		  where messageid = ? and author = userid";
 if ($stmt = $mysqli->prepare($query)) {
 	$stmt->bind_param('s', $id);
     $stmt->execute();
-    $stmt->bind_result($title, $text, $time, $author,$authorid,$email);
+    $stmt->bind_result($title, $text, $time, $author,$authorid);
     }
 
 if (!$stmt->fetch()) {
@@ -33,7 +33,7 @@ else {
 		  </tr>';
 	echo '<tr class="topic-post">';
 	echo '<td class="user-post">';
-	echo $author.'('.$email.')';
+	echo $author;
 	echo "<br>";
 	echo "send at ".$time;
 	echo '</td>';

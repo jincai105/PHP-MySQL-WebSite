@@ -25,8 +25,7 @@ if (!$db_selected) {
 */
 // Select all the rows in the markers table
 $query = "select userid, uname, address, x(locationpoint) as lat, y(locationpoint) as lng, profile from users where userid< 8 and userid >4";
-$singlePoint = $_SESSION["show"];
-if( $singlePoint==0 )
+if(isset($_SESSION["query"]))
 	$query = $_SESSION["query"];
 $result = $mysqli->query($query);
 if (!$result) {

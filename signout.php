@@ -5,7 +5,7 @@
 <?php
 include "include.php";
 include "header.php";
-echo '<h2>Sign out</h2><br>';
+echo '<h2>Sign out</h2>';
 
 if (isset($_SESSION["userid"])){
 	$result = $mysqli->query("update users set lastlogtime = NOW() where userid = ".$_SESSION["userid"]);
@@ -13,7 +13,7 @@ if (isset($_SESSION["userid"])){
 	header("Refresh:0");
 }
 
-echo "Succesfully sign out, thank you for visiting.";// You will be redirected in 3 seconds";
+echo "Succesfully signed out, thank you for visiting.";// You will be redirected in 3 seconds";
 
 $mysqli->close();
 include "footer.php";

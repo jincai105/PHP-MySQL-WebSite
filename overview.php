@@ -1,14 +1,17 @@
+<?php
+include "include.php";
+?>
 <!DOCTYPE html>
 <html>
 <title>overview</title>
 
 <?php
 //This page displays the list of the forum's categories
-include "include.php";
+//include "include.php";
 include "header.php";
 
 if (!isset($_SESSION["userid"])){
-    echo 'Sorry, you have to <a href="signin.php">sign in</a> to access to content.';
+    echo 'Sorry, you have to <a href="signin.php">sign in</a> to search post.';
 }
 else{
     $sql = "select status,count(*) as cnt from member where userid = ?";
@@ -44,12 +47,12 @@ else{
             case "friends":
                 $sql = 'select count(*) as new
                         from posts, users
-                        where recipient_type = "friends" and ('.$_SESSION['userid'].' in (select userid1 from friends where userid2 = author and status = "Y") or '.$_SESSION['userid'].' in (select userid2 from friends where userid1 = author and status = "Y") or author = ?) and users.userid = ? and time>lastlogtime';
+                        where recipient_type = "friends" and ('.$_SESSION['userid'].' in (select userid1 from friends where userid2 = author and status = "Y") or ? in (select userid2 from friends where userid1 = author and status = "Y")) and users.userid = ? and time>lastlogtime';
                 break;
             case "neighbors":
                 $sql = 'select count(*) as new
                 from posts, users
-                where recipient_type = "neighbors" and ('.$_SESSION['userid'].' in (select userid2 from neighbors where userid1 = author) or author = ?) and users.userid = ? and time>lastlogtime';
+                where recipient_type = "neighbors" and ? in (select userid2 from neighbors where userid1 = author) and users.userid = ? and time>lastlogtime';
                 break;
             case "hood":
                 $sql = 'select count(*) as new

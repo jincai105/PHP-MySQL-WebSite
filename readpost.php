@@ -16,13 +16,13 @@ $sql = "replace into readpost VALUES ('".$_SESSION['userid']."','".$id."')";
 $result = $mysqli->query($sql);
 // if ($result) {echo 'OK';}
 
-$query = "select subject,title,text,time,uname,X(coordinate),Y(coordinate),location,email
+$query = "select subject,title,text,time,uname,X(coordinate),Y(coordinate)
 		  from posts,users
 		  where postid = ? and author = userid";
 if ($stmt = $mysqli->prepare($query)) {
 	$stmt->bind_param('s', $id);
     $stmt->execute();
-    $stmt->bind_result($subject,$title, $text, $time, $author,$lat,$long,$location,$email);
+    $stmt->bind_result($subject,$title, $text, $time, $author,$lat,$long);
     }
 
 if (!$stmt->fetch()) {
@@ -35,16 +35,16 @@ else {
 		  </tr>';
 	echo '<tr class="topic-post">';
 	echo '<td class="user-post">';
-	echo $author.'('.$email.')';
+	echo $author;
 	echo "<br>";
 	echo "created at ".$time;
 	echo '</td>';
 	echo '<td class="post-content">';
 	echo htmlentities($text, ENT_QUOTES, 'UTF-8');
 	if (isset($lat)){
-		$_SESSION["pProfile"]=$author;
-		$_SESSION["pName"]=$title;
-		$_SESSION["pAddress"]=$location;
+		$_SESSION["pProfile"]='p';
+		$_SESSION["pName"]=$subject;
+		$_SESSION["pAddress"]=$title;
 		$_SESSION["pLat"]=$lat;
 		$_SESSION["pLong"]=$long;
 		$_SESSION["show"]=1;
@@ -61,20 +61,20 @@ else {
 }
 $stmt->close();
 
-$query = "select text,time,uname,email
+$query = "select text,time,uname
 		  from reply,users
 		  where postid = ? and replier=userid
 		  order by time asc";
 if ($stmt = $mysqli->prepare($query)) {
 		$stmt->bind_param('s', $id);
     	$stmt->execute();
-    	$stmt->bind_result($reply, $replytime, $replier,$email);
+    	$stmt->bind_result($reply, $replytime, $replier);
     }
 
 while ($stmt->fetch()) {
 	echo '<tr class="topic-post">';
 	echo '<td class="user-post">';
-	echo $replier.'('.$email.')';
+	echo $replier;
 	echo "<br>";
 	echo "replied at ".$replytime;
 	echo '</td>';

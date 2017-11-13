@@ -14,9 +14,9 @@ if(!isset($_SESSION["userid"])) {
   header("refresh: 3; login.php");
 }
 else {
-	  $userid = $_SESSION["userid"];
+	$userid = $_SESSION["userid"];
     if(isset($_POST["uname"])&& ($_POST["password"]==$_POST["confirm"])){
-		$password = md5($_POST["password"]);
+		$password = $_POST["password"];
 		$uname = $_POST["uname"];
 		$address = $_POST["address"];
 		$profile = $_POST["profile"];
@@ -32,18 +32,20 @@ else {
         $response = curl_exec($ch);
         curl_close($ch);
         $response_a = json_decode($response);
-		if(!$response_a->results)
+        $lat = $response_a->results[0]->geometry->location->lat;
+        $long = $response_a->results[0]->geometry->location->lng;
+		if(!isset($lat))
 		{
 			echo "Address Not Found!";
 			echo '<br /><a href="profile.php">Go back</a>';
 		}
 		else{
-        $lat = $response_a->results[0]->geometry->location->lat;
-        $long = $response_a->results[0]->geometry->location->lng;
               if ($stmt = $mysqli->prepare("Update users set uname = ?,password=?,address=?,profile =?,locationpoint = point(?,?) where userid =?")){
 			         $stmt->bind_param("ssssdds",$uname,$password,$address,$profile,$lat,$long,$userid);
+               $stmt->execute();
+    
     		 //		  	sleep(1); //pause a bit to help prevent brute force attacks
-              if($stmt->execute()){
+              if($stmt->fetch()){
                 if ($_POST["oldaddress"] == $_POST["address"]){
                         echo "Succeeed!";
                         $_SESSION["uname"] = $uname;
@@ -64,7 +66,7 @@ else {
 			  else
 			  	echo "stmt failed";
 
-		      
+		      $mysqli->close();
          }   			
     }
     else{
@@ -72,7 +74,7 @@ else {
     		echo "Please retype your passwords:<br /><br />";
     	else 
     		echo "Please input your inforamation below: <br /><br />";
-        if ($stmt = $mysqli->prepare("Select uname,address,password,profile from users where userid=".$_SESSION['userid'])){
+        if ($stmt = $mysqli->prepare("Select uname,address,password,profile from users where userid=".$userid)){
             //  $stmt->bind_param("sssss",$email,$uname,$password,$address,$profile);
               $stmt->execute();
 			        $stmt->bind_result($uname,$address,$password,$profile);
@@ -80,10 +82,10 @@ else {
               if($stmt->fetch()){
 
     			
-		          echo '<form action="profile.php" method="POST">';
+		      echo '<form action="profile.php" method="POST">';
           	  echo "Name:<input type=\"text\" name=\"uname\" pattern=\"[a-zA-Z ]*\" maxlength=\"32\" required=\"required\" value = \"$uname\"/><br />";
-          	  echo "Password:<input type=\"password\" name=\"password\" pattern=\"[A-z0-9]*\" maxlength=\"32\" required=\"required\" /><br />";
-          	  echo "Confirm:<input type=\"password\" name=\"confirm\" pattern=\"[A-z0-9]*\" maxlength=\"32\" required=\"required\" /><br />";
+          	  echo "Password:<input type=\"password\" name=\"password\" pattern=\"[A-z0-9]*\" maxlength=\"32\" required=\"required\" value = \"$password\"/><br />";
+          	  echo "Confirm:<input type=\"password\" name=\"confirm\" pattern=\"[A-z0-9]*\" maxlength=\"32\" required=\"required\" value = \"$password\" /><br />";
            	  echo "Address:<input type=\"text\" name=\"address\" pattern=\"[A-z0-9 -_]*\" maxlength=\"32\" required=\"required\" value = \"$address\"/><br />";
               echo "<input type='hidden' name='oldaddress' value='".$address."'>";
               echo 'Profile:<br>
@@ -91,7 +93,7 @@ else {
       
           	  echo '<input type="submit" value="Save the change" />';
           	  echo '</form>';
-			     }
+			}
 
             $stmt->close();
    
@@ -100,6 +102,5 @@ else {
         	
     }
 }
-$mysqli->close();
 include "footer.php";
 ?>

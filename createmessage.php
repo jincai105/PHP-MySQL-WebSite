@@ -14,10 +14,10 @@ else{
 	//show reply box
 	echo '<tr><td colspan="2"><h2>message:</h2><br />
 		<form method="post" action="sendmessage.php">
-		send to<input type="text" name="receipient" required="required"/><br/>
-		title  <input type="text" name="title" required="required"/><br/>
+		send to<input type="text" name="receipient"/><br/>
+		title  <input type="text" name="title"/><br/>
 		<input type="hidden" name="type" value="initial"/>
-		<textarea name="message-content" required="required"></textarea><br /><br />
+		<textarea name="message-content"></textarea><br /><br />
 		<input type="submit" value="Send message" />
 		</form></td></tr>';
 	}

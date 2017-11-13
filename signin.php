@@ -19,7 +19,7 @@ else {
     //check if entry exists in database
     if ($stmt = $mysqli->prepare("select userid,uname,lastlogtime from users where email = ? and password = ?")) {
 	  $email = $_POST["email"];
-	  $password = md5($_POST["password"]);
+	  $password = $_POST["password"];
       $stmt->bind_param("ss", $email , $password);
       $stmt->execute();
       $stmt->bind_result($userid, $uname, $lastlogtime);
@@ -28,11 +28,12 @@ else {
 		      $_SESSION["userid"] = $userid;
 		      $_SESSION["uname"] = $uname;
 		      $_SESSION["email"] = $_POST["email"];
+		      $_SESSION["password"] = $_POST["password"];
 		      $_SESSION["time"] = strtotime($lastlogtime);
 		      $_SESSION["REMOTE_ADDR"] = $_SERVER["REMOTE_ADDR"]; //store clients IP address to help prevent session hijack
-	//          echo "You will be redirected in 3 seconds or click <a href=\"index.php\">here</a>.";
-		      		    echo 'Welcome, ' . $_SESSION['uname'] ."<br> Proceed to <a href=\"overview.php\">overview</a>.";
-            header("Refresh:0");
+		      echo 'Welcome, ' . $_SESSION['uname'] ."<br> Proceed to <a href=\"overview.php\">overview</a>.";
+          header("Refresh:0");
+//          echo "You will be redirected in 3 seconds or click <a href=\"index.php\">here</a>.";
 //          header("refresh: 3; index.php");
         }
 		//if no match then tell them to try again
@@ -40,8 +41,7 @@ else {
 		  sleep(1); //pause a bit to help prevent brute force attacks
 		  echo "Your Email and password don't match, click <a href=\"signin.php\">here</a> to try again.";
 		}
-		$stmt->close();
-      
+      $stmt->close();
 	  $mysqli->close();
     }  
   }
@@ -59,4 +59,3 @@ else {
 
 include "footer.php"
 ?>
-		}

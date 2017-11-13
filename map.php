@@ -49,7 +49,34 @@ include "include.php";
 	  
 
 
-
+	  <?php
+	  include "include.php";
+	  	$pNorth = $_SESSION["pNorth"];
+		$pSouth = $_SESSION["pSouth"];
+		$pEast = $_SESSION["pEast"];
+		$pWest = $_SESSION["pWest"];
+	   	$drawRectangle = $_SESSION["drawRectangle"];
+		
+		if($drawRectangle==1)
+		{
+	    echo "
+	    var rectangle = new google.maps.Rectangle({
+  		strokeColor: '#FF0000',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#FF0000',
+        fillOpacity: 0.35,
+        map: map,
+        bounds: {
+			north: $pNorth,
+			south: $pSouth,
+			east: $pEast,
+			west: $pWest
+	
+        }
+   		});";
+	   }
+	   ?>
 /*		  var rectangle = new google.maps.Rectangle({
     strokeColor: '#FF0000',
     strokeOpacity: 0.8,
@@ -103,35 +130,6 @@ include "include.php";
    	      mapTypeId: 'roadmap'
      	 });
 		
-     <?php
-    include "include.php";
-    $pNorth = $_SESSION["pNorth"];
-    $pSouth = $_SESSION["pSouth"];
-    $pEast = $_SESSION["pEast"];
-    $pWest = $_SESSION["pWest"];
-      $drawRectangle = $_SESSION["drawRectangle"];
-    
-    if($drawRectangle==1)
-    {
-      echo "
-      var rectangle = new google.maps.Rectangle({
-      strokeColor: '#FF0000',
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
-        fillColor: '#FF0000',
-        fillOpacity: 0.35,
-        map: map,
-        bounds: {
-      north: $pNorth,
-      south: $pSouth,
-      east: $pEast,
-      west: $pWest
-  
-        }
-      });";
-     }
-     ?>
-
 		if(show === 1){
 		    var name = pName;
             var address = pAddress;
