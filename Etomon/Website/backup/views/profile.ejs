@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Etomon</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+  <style>
+
+    /* Remove the navbar's default margin-bottom and rounded borders */
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 450px}
+
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;}
+    }
+  </style>
+</head>
+<body>
+<script>
+  var cookie_val = $.cookie("name");
+  function profileSubmit(){
+    document.forms["update_form"]["userId"]="ttt";
+
+    return true;
+
+
+  }
+</script>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Logo</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="/">Course</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid text-center">
+  <div class="row content">
+    <div class="col-sm-2 sidenav">
+      <p><a href="#">Profile</a></p>
+      <p><a href="studentcourses">Enrolled Courses</a></p>
+      <p><a href="#">Message</a></p>
+    </div>
+    <div class="col-sm-8 text-left">
+      <h3>User Profile: <%=user.firstName%></h3>
+      <form accept-charset="UTF-8" action="profile/update" name="profile" id="update_form" method="post">
+
+        <div class="panel space-4">
+          <div class="panel-header" hidden>
+            Required
+          </div>
+          <div class="panel-body">
+            <input type="hidden" name="password" id="user_email_password" value="">
+
+            <div class="row row-condensed space-4">
+              <label class="text-right col-sm-3" for="user_firstname">
+                First Name
+              </label>
+              <div class="col-sm-9">
+                <input  name="first_name" size="30" type="text" value="<%=user.firstName%>">
+              </div>
+            </div>
+
+            <div class="row row-condensed space-4">
+              <label class="text-right col-sm-3" for="user_lastname">
+                Last Name
+              </label>
+              <div class="col-sm-9">
+                <input  name="last_name" size="30" type="text" value="<%=user.lastName%>">
+              </div>
+            </div>
+
+            <div class="row row-condensed space-4">
+              <label class="text-right col-sm-3" for="user_email">
+                Email
+              </label>
+              <div class="col-sm-9">
+                <input  name="email" size="30" type="text" value="<%=user.email%>">
+              </div>
+            </div>
+
+            <div class="row row-condensed space-4">
+              <label class="text-right col-sm-3" for="user_phonenum">
+                Phone Number
+              </label>
+              <div class="col-sm-9">
+                <input  name="phonenum" size="30" type="text" value="<%=user.phonenum%>">
+              </div>
+            </div>
+
+            <div class="row row-condensed space-4">
+              <label class="text-right col-sm-3" for="user_sex">
+                Gender <i class="icon icon-lock icon-ebisu" data-behavior="tooltip" aria-label="Private"></i>
+              </label>
+              <div class="col-sm-9">
+                <div class="select">
+                  <select id="user_sex" name="sex">
+                    <option selected hidden><%=user.sex%></option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="row row-condensed space-4">
+              <label class="text-right col-sm-3" for="user_location">
+                Where you live
+              </label>
+              <div class="col-sm-9">
+                <input id="user_location" name="location" size="30" type="text" value="<%=user.location%>">
+              </div>
+            </div>
+
+            <div class="row row-condensed space-4">
+              <label class="text-right col-sm-3" for="user_description">
+                Descript Your Self
+              </label>
+              <div class="col-sm-9">
+                <input id="user_description" name="description" size="30" type="text" value="<%user.description%>">
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+
+        <button type="submit" onclick="return profileSubmit()" class="btn btn-primary btn-large">
+          Save
+        </button>
+      </form>
+
+      <hr>
+      <h3>Calender</h3>
+
+      <p>To do...</p>
+
+    </div>
+    <div class="col-sm-2 sidenav">
+      <div class="well">
+        <p>Class You might like class1</p>
+      </div>
+      <div class="well">
+        <p>Class You might like class2</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="container-fluid text-center">
+  <p>Etomon</p>
+</footer>
+
+</body>
+</html>

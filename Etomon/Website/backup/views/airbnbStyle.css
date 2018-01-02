@@ -1,0 +1,160 @@
+        a:link {
+        text-decoration: none;
+        }
+
+        a:visited {
+        text-decoration: none;
+        }
+
+        a:hover {
+        text-decoration: none;
+        }
+
+        a:active {
+        text-decoration: none;
+        }
+    
+        ._mainblock {
+        position: absolute;
+        overflow: auto;
+        padding: 0 18px !important;
+        align:center;  
+        }
+
+        ._classblock {
+        margin: auto;
+        display: inline-block;
+        vertical-align: top !important;
+        white-space: normal !important;
+        padding-top: 8px !important;
+        padding-bottom: 12px !important;
+        padding-left: 30px !important;
+        padding-right：30px !important;        
+        }
+
+        ._classcontent{
+        white-space: normal !important;
+        position: relative !important;
+        display: inline-block !important;
+        vertical-align: top !important;
+        white-space: normal !important;
+        box-sizing: border-box;
+        display: inline-block !important;
+        vertical-align: top !important;
+        white-space: normal !important;
+        font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
+        font-size: 14px;
+        line-height: 1.43;
+        color: #484848;
+        background-color: #fff;
+        -webkit-font-smoothing: antialiased;
+        }
+
+        ._classimgbackground{
+        position: relative !important;
+        width: 100% !important;
+        z-index: 0 !important;
+        border-radius: 3px !important;
+        overflow: hidden !important;
+        }
+
+        ._classimgblock{
+        position: absolute !important;
+        top: 0px !important;
+        bottom: 0px !important;
+        left: 0px !important;
+        right: 0px !important;
+        height: 100% !important;
+        width: 100% !important;
+        }
+
+
+        ._classimg{
+        position: absolute !important;
+        background-size: cover !important;
+        white-space: normal !important;
+        }
+
+        ._classinfo{
+        width: 100% !important;
+        padding-top: 8px !important;
+        padding-bottom: 8px !important;
+        color: #484848 !important;
+        }
+
+        ._classname {
+        font-weight: 700 !important;
+        font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important;
+        font-size: 12px !important;
+        line-height: 16px !important;
+        letter-spacing: 0.4px !important;
+        padding-top: 0px !important;
+        padding-bottom: 0px !important;
+        color: #484848 !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        text-transform: uppercase !important;
+        white-space: nowrap !important;
+        margin-bottom: 2px !important;
+        }
+
+        ._classdescription{
+        font-weight: 700 !important;
+        font-size: 17px !important;
+        line-height: 21px !important;
+        max-height: 42px !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 2 !important;
+        -webkit-box-orient: vertical !important;
+        margin-bottom: 4px !important;
+        }
+
+        ._classfee {
+        font-weight: 300 !important;
+        font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important;
+        font-size: 15px !important;
+        line-height: 18px !important;
+        letter-spacing: 0.2px !important;
+        padding-top: 0px !important;
+        padding-bottom: 0px !important;
+        color: #484848 !important;
+        }
+
+        ._classrating {
+        vertical-align: middle !important;
+        font-family: initial !important;
+        margin-right: 2px !important;
+        }
+
+        ._classratingstar {
+        display: inline-block !important;
+        color: #008489 !important;
+        font-size: 9px !important;
+        height: 10px !important;
+        margin-right: 1px !important;
+        width: 9px !important;
+        }
+
+
+        ._numofreviews {
+        font-weight: normal !important;
+        margin: 0px !important;
+        word-wrap: break-word !important;
+        font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important;
+        font-size: 12px !important;
+        line-height: 16px !important;
+        letter-spacing: 0.4px !important;
+        padding-top: 0px !important;
+        padding-bottom: 0px !important;
+        color: #484848 !important;
+        display: inline !important;
+        }
+
+
+
+
+
+
+

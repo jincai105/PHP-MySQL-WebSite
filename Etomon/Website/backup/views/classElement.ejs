@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <h1>Class Element</h1>
+  <link rel="stylesheet" href="stylesheets/airbnbStyle.css" type="text/css">
+</head>
+<style>
+</style>
+
+<body class = "with-new-header has-epcot-header">
+  <div class = "_mainblock">
+    <div class="_classblock">
+      <div class="_classcontent">
+        <a href="http://www.airbnb.com/experiences/130984?source=p1&amp;currentTab=all_tab&amp;searchId=12c323e9-84b7-438d-9be4-f9aba0723658&amp;recommended_instance_id=271097" target="_blank" rel="noopener noreferrer" class="_classlink" aria-busy="false">
+          <div class="_classimgbackground" style="padding-top: 66.6667%; background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAADCAIAAADUVFKvAAAAO0lEQVQIHQEwAM//AXthPfT2AD0sJA0S/gb89AGaekzk7xFQY3XXuZrp7eIBoYRQrLzjZWt60ruc8/XuJyEZ/rpfmj8AAAAASUVORK5CYII=&quot;); background-size: 100% 100%;">
+            <div class="_classimgblock">
+              <div style="width: 100%; height: 100%;">
+                <div class="_classcontent" style="width: 100%; height: 100%;">
+                  <div class="_classimg" role="img" aria-label="Learn salsa at a rooftop studio" style="width: 100%; height: 100%; background-image: url(&quot;https://a0.muscache.com/im/pictures/014e259a-8250-415c-9994-a2305125b83d.jpg?aki_policy=large&quot;);"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="_classinfo">
+            <div>
+              <div class="_classname"><span style="color: rgb(75, 45, 28);"><%= classname%></span></div>
+              <div class="_classdescription"><%= classdescription%></div>
+              <div class="_classfee">$<%= classfee%> per person</div>
+              <div>
+                <span class="_classrating">
+                  <span role="img" aria-label="Rating 5 out of 5">
+                      <% var star =  `<span class="_classratingstar"> <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
+                      		<path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
+                      	</svg> </span>`; %>
+                      <% for(var i=0;i<classratingstar;i++){%>
+                      <%- star %>
+                      <%}%>
+
+
+                  </span>
+                </span>
+                <span aria-label="7 reviews">
+                  <span class="_numofreviews"><%= numofreviews%>
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
